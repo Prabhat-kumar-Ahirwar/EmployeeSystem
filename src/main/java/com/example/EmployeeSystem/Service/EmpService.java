@@ -28,4 +28,13 @@ public class EmpService {
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
         empRepo.delete(employee);
     }
+    public Employee updateEmp(Long id, Employee employee){
+        Employee existingEmployee = empRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        existingEmployee.setName(employee.getName());
+        existingEmployee.setSalary(employee.getSalary());
+        existingEmployee.setPosition(employee.getPosition());
+        existingEmployee.setJoiningDate(employee.getJoiningDate());
+        return empRepo.save(existingEmployee);
+    }
 }

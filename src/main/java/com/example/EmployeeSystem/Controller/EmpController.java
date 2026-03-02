@@ -41,4 +41,12 @@ public class EmpController {
         empService.remove(id);
         return ResponseEntity.noContent().build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmp(@PathVariable Long id,
+                                              @RequestBody Employee employee){
+
+        Employee updatedEmployee = empService.updateEmp(id, employee);
+
+        return ResponseEntity.ok(updatedEmployee);
+    }
 }
