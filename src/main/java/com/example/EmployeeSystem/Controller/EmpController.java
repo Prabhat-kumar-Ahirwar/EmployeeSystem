@@ -36,4 +36,9 @@ public class EmpController {
         }
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removeEmp(@PathVariable Long id){
+        empService.remove(id);
+        return ResponseEntity.noContent().build();
+    }
 }

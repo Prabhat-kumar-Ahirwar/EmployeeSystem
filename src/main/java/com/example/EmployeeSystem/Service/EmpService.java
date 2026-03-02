@@ -3,6 +3,7 @@ package com.example.EmployeeSystem.Service;
 import com.example.EmployeeSystem.Model.Employee;
 import com.example.EmployeeSystem.Repository.EmpRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,5 +22,10 @@ public class EmpService {
     }
     public Employee getEmpById(Long id){
         return empRepo.findById(id).orElse(null);
+    }
+    public void remove(Long id){
+        Employee employee = empRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Employee not found"));
+        empRepo.delete(employee);
     }
 }
