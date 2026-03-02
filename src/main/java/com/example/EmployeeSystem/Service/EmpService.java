@@ -19,4 +19,7 @@ public class EmpService {
     public List<Employee> getAllEmp(){
         return empRepo.findAll();
     }
+    public Employee getEmpById(Long id){
+        return empRepo.findById(id).orElse(null);
+    }
 }

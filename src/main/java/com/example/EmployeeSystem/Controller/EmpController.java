@@ -27,4 +27,13 @@ public class EmpController {
         List<Employee> employees = empService.getAllEmp();
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> empById(@PathVariable Long id){
+        Employee employee = empService.getEmpById(id);
+        if(employee == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(employee, HttpStatus.OK);
+    }
 }
