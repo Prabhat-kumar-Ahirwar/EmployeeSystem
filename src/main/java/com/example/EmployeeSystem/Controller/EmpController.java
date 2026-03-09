@@ -1,7 +1,10 @@
 package com.example.EmployeeSystem.Controller;
 
+import com.example.EmployeeSystem.Exception.EmployeeNotFoundException;
 import com.example.EmployeeSystem.Model.Employee;
+import com.example.EmployeeSystem.Repository.EmpRepo;
 import com.example.EmployeeSystem.Service.EmpService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +18,10 @@ import java.util.List;
 public class EmpController {
 
     private final EmpService empService;
+    private final EmpRepo empRepo;
 
     @PostMapping("/add")
-    public ResponseEntity<Employee> addEmp(@RequestBody Employee employee){
+    public ResponseEntity<Employee> addEmp(@Valid @RequestBody Employee employee){
         Employee savedEmployee = empService.addEmp(employee);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
@@ -29,13 +33,11 @@ public class EmpController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> empById(@PathVariable Long id){
-        Employee employee = empService.getEmpById(id);
-        if(employee == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+    public Employee getEmpById(@PathVariable Long id){
+        return empRepo.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee not found with id " + id));
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> removeEmp(@PathVariable Long id){
         empService.remove(id);
