@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -48,5 +49,9 @@ public class EmpService {
 
     public List<Employee> getByName(String name) {
         return empRepo.findByName(name); // use repository method
+    }
+
+    public List<Employee> findByJoiningDateAfter(LocalDate joiningDate) {
+        return empRepo.findByJoiningDateAfter(joiningDate);
     }
 }

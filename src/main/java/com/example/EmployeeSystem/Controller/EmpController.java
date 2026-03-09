@@ -7,11 +7,13 @@ import com.example.EmployeeSystem.Service.EmpService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.hibernate.sql.model.EntityMutationOperationGroup;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -63,6 +65,13 @@ public class EmpController {
     @GetMapping("/search/name/{name}")
     public ResponseEntity<List<Employee>> getByName(@PathVariable String name){
         List<Employee> employees = empService.getByName(name);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+    @GetMapping("/search/joindate/{joiningdate}")
+    public ResponseEntity<List<Employee>> findByJoiningDateAfter(
+            @PathVariable("joiningdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate joiningDate) {
+
+        List<Employee> employees = empService.findByJoiningDateAfter(joiningDate);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 }
