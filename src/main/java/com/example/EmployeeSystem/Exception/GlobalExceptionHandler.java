@@ -12,4 +12,8 @@ public class GlobalExceptionHandler{
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(SalaryNotNegativeException.class)
+    public ResponseEntity<String> HandleSalaryException(SalaryNotNegativeException ex){
+        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.EmployeeSystem.Service;
 
+import com.example.EmployeeSystem.Exception.SalaryNotNegativeException;
 import com.example.EmployeeSystem.Model.Employee;
 import com.example.EmployeeSystem.Repository.EmpRepo;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,9 @@ public class EmpService {
     private final EmpRepo empRepo;
 
     public Employee addEmp(Employee employee){
+        if(employee.getSalary()<0){
+            throw new SalaryNotNegativeException("Salary can not be negative or 0");
+        }
         return empRepo.save(employee);
     }
     public List<Employee> getAllEmp(){

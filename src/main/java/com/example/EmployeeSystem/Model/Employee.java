@@ -21,7 +21,6 @@ public class Employee {
     private String name;
 
     @NotNull(message = "Salary is required")
-    @Positive(message = "Salary must be positive")
     private Float salary;
 
     @NotBlank(message = "Position can't be blank")
