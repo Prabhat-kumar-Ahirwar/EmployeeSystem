@@ -6,6 +6,7 @@ import com.example.EmployeeSystem.Repository.EmpRepo;
 import com.example.EmployeeSystem.Service.EmpService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,4 +52,12 @@ public class EmpController {
 
         return ResponseEntity.ok(updatedEmployee);
     }
+
+    @GetMapping("search/{position}")
+    public ResponseEntity<List<Employee>> getEmployeeByPosition(@PathVariable String position){
+        List<Employee> employees = empService.getByPosition(position);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+
 }

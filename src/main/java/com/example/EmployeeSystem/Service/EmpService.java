@@ -41,4 +41,8 @@ public class EmpService {
         existingEmployee.setJoiningDate(employee.getJoiningDate());
         return empRepo.save(existingEmployee);
     }
+
+    public List<Employee> getByPosition(String position) {
+        return empRepo.findByPositionContaining(position);
+    }
 }
