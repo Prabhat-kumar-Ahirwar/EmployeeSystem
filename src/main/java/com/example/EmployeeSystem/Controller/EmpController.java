@@ -6,6 +6,7 @@ import com.example.EmployeeSystem.Repository.EmpRepo;
 import com.example.EmployeeSystem.Service.EmpService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.hibernate.sql.model.EntityMutationOperationGroup;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,11 +54,15 @@ public class EmpController {
         return ResponseEntity.ok(updatedEmployee);
     }
 
-    @GetMapping("search/{position}")
+    @GetMapping("search/position/{position}")
     public ResponseEntity<List<Employee>> getEmployeeByPosition(@PathVariable String position){
         List<Employee> employees = empService.getByPosition(position);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
-
+    @GetMapping("/search/name/{name}")
+    public ResponseEntity<List<Employee>> getByName(@PathVariable String name){
+        List<Employee> employees = empService.getByName(name);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
 }

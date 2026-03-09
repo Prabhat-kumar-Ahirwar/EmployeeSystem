@@ -45,4 +45,8 @@ public class EmpService {
     public List<Employee> getByPosition(String position) {
         return empRepo.findByPositionContaining(position);
     }
+
+    public List<Employee> getByName(String name) {
+        return empRepo.findByName(name); // use repository method
+    }
 }

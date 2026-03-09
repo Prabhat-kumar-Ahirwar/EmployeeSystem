@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface EmpRepo extends JpaRepository<Employee ,Long> {
     List<Employee> findByPositionContaining(String position);
+
+    List<Employee> findByName(String name);
 }
