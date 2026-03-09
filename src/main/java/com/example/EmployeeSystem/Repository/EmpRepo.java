@@ -2,6 +2,8 @@ package com.example.EmployeeSystem.Repository;
 
 import com.example.EmployeeSystem.Model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -14,4 +16,8 @@ public interface EmpRepo extends JpaRepository<Employee ,Long> {
     List<Employee> findByName(String name);
 
     List<Employee> findByJoiningDateAfter(LocalDate joiningDate);
+
+    @Query("SELECT e FROM Employee e WHERE e.salary BETWEEN :minSalary AND :maxSalary")
+    List<Employee> findEmployeesBySalaryRange(@Param("minSalary") Float minSalary,
+                                              @Param("maxSalary") Float maxSalary);
 }

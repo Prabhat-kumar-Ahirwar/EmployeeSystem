@@ -74,4 +74,9 @@ public class EmpController {
         List<Employee> employees = empService.findByJoiningDateAfter(joiningDate);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
+    @GetMapping("/search/{min}/{max}")
+    public ResponseEntity<List<Employee>> getEmployeeBySalaryRange(@PathVariable float min ,@PathVariable float max){
+        List<Employee> employees = empService.getEmpBySalaryRange(min,max);
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
 }

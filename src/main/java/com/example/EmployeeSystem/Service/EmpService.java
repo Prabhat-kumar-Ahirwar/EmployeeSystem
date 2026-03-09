@@ -54,4 +54,8 @@ public class EmpService {
     public List<Employee> findByJoiningDateAfter(LocalDate joiningDate) {
         return empRepo.findByJoiningDateAfter(joiningDate);
     }
+
+    public List<Employee> getEmpBySalaryRange(float min, float max) {
+        return empRepo.findEmployeesBySalaryRange(min,max);
+    }
 }
