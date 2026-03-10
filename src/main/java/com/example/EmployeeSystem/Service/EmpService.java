@@ -4,6 +4,9 @@ import com.example.EmployeeSystem.Exception.SalaryNotNegativeException;
 import com.example.EmployeeSystem.Model.Employee;
 import com.example.EmployeeSystem.Repository.EmpRepo;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +25,9 @@ public class EmpService {
         }
         return empRepo.save(employee);
     }
-    public List<Employee> getAllEmp(){
-        return empRepo.findAll();
+    public Page<Employee> getAllEmp(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return empRepo.findAll(pageable);
     }
     public Employee getEmpById(Long id){
         return empRepo.findById(id).orElse(null);
@@ -47,8 +51,9 @@ public class EmpService {
         return empRepo.findByPositionContaining(position);
     }
 
-    public List<Employee> getByName(String name) {
-        return empRepo.findByName(name); // use repository method
+    public Page<Employee> getByName(String name, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return empRepo.findByNameContaining(name, pageable);
     }
 
     public List<Employee> findByJoiningDateAfter(LocalDate joiningDate) {

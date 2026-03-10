@@ -6,7 +6,9 @@ import com.example.EmployeeSystem.Repository.EmpRepo;
 import com.example.EmployeeSystem.Service.EmpService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+
 import org.hibernate.sql.model.EntityMutationOperationGroup;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,8 +33,11 @@ public class EmpController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Employee>> getEmp(){
-        List<Employee> employees = empService.getAllEmp();
+    public ResponseEntity<Page<Employee>> getEmp(
+            @RequestParam int size,
+            @RequestParam int page
+    ){
+        Page<Employee> employees = empService.getAllEmp(page,size);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
@@ -63,8 +68,8 @@ public class EmpController {
     }
 
     @GetMapping("/search/name/{name}")
-    public ResponseEntity<List<Employee>> getByName(@PathVariable String name){
-        List<Employee> employees = empService.getByName(name);
+    public ResponseEntity<Page<Employee>> getByName(@PathVariable String name , @RequestParam int page , int size){
+        Page<Employee> employees = empService.getByName(name,page,size);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
     @GetMapping("/search/joindate/{joiningdate}")
