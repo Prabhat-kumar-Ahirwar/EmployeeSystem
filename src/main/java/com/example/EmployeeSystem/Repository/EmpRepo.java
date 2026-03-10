@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public interface EmpRepo extends JpaRepository<Employee ,Long> {
-    List<Employee> findByPositionContaining(String position);
+    Page<Employee> findByPositionContaining(String position,Pageable pageable);
 
 
     List<Employee> findByJoiningDateAfter(LocalDate joiningDate);

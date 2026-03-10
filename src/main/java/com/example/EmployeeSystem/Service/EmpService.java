@@ -47,8 +47,9 @@ public class EmpService {
         return empRepo.save(existingEmployee);
     }
 
-    public List<Employee> getByPosition(String position) {
-        return empRepo.findByPositionContaining(position);
+    public Page<Employee> getByPosition(String position,int page ,int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return empRepo.findByPositionContaining(position,pageable);
     }
 
     public Page<Employee> getByName(String name, int page, int size) {

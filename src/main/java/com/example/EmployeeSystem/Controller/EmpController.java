@@ -62,8 +62,9 @@ public class EmpController {
     }
 
     @GetMapping("search/position/{position}")
-    public ResponseEntity<List<Employee>> getEmployeeByPosition(@PathVariable String position){
-        List<Employee> employees = empService.getByPosition(position);
+    public ResponseEntity<Page<Employee>> getEmployeeByPosition(@PathVariable String position,
+                                                                @RequestParam int page, @RequestParam int size){
+        Page<Employee> employees = empService.getByPosition(position,page,size);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
